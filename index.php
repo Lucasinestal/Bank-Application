@@ -8,15 +8,22 @@
     <title>Document</title>
 </head>
 <body class="bg-dark d-flex justify-content-center align-items-center">
-<div class="container w-50 shadow p-5 d-flex flex-column">
+<div class="container w-25 shadow p-5 d-flex flex-column">
     <h4 class="text-light">Make transaction</h2>
-    <button class="w-100 m-2" id="transactionBtn">Choose recipient</button>
+    <!--<button class="w-100 m-2" id="transactionBtn">Choose recipient</button>-->
     <form action="" method="POST">
     <div id="userContainer"></div>
-    <input class="w-100 text-center m-2"id="from_amount" type="text" name="from_amount" placeholder="Amount e.g: 100"></input><br>
-    <input class="w-100 text-center m-2" id="from_account" type="text" name="from_account" placeholder="Choose Sender"></input><br>
-    <button class="w-100 btn btn-primary m-2" id="submitTransferBtn"type="submit">Submit Transaction</button>
+    <label for="userList" class="text-light ml-2">Select recipient</label>
+    <div><input class="form-control w-100 text-center m-2"id="from_amount" type="text" name="from_amount" placeholder="Amount e.g: 100" required></input></div>
+    <label for="from_amount" class="text-light ml-2">Amount you wish to transfer</label>
+    <div><input class="form-control w-100 text-center m-2" id="from_account" type="text" name="from_account" placeholder="Choose Sender" required></input></div>
+    <label for="from_amount" class="text-light ml-2">Account you wish to transfer from</label>
+    <button class="form-control w-100 btn btn-primary m-2" id="submitTransferBtn"type="submit">Submit Transaction</button>
     </form> 
+    <div id="messageDiv">
+    <p id="failMsg" class='text-danger text-center p-1 m-2'>Transaction failed, not enough credits!</p>
+    <p id="successMsg" class='text-success text-center p-1 m-2'>Transaction was successful!</p>
+    </div>
     </div>
     <script src="public/app/scripts/main.js"></script>
 </body>

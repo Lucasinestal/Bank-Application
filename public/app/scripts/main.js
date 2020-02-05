@@ -1,8 +1,10 @@
 $( document ).ready(function() {
+  $("#failMsg").hide();
+  $("#successMsg").hide();
     console.log( "ready!" );
-    $("#transactionBtn").click(function(e) {
-        $("#transactionBtn").remove();
-        e.preventDefault();
+    //$("#transactionBtn").click(function(e) {
+       // $("#transactionBtn").remove();
+        //e.preventDefault();
         $.ajax({
           type: "GET",
           url: "http://test01.local/bank-application/public/api/read.php",
@@ -13,7 +15,7 @@ $( document ).ready(function() {
               let results = result.users;
               console.log(results);
               
-                let $select = $("<select class='w-100 text-center p-1 m-2' name='user_id'></select>");
+                let $select = $("<select class='w-100 text-center p-1 m-2 form-control' name='user_id'></select>");
                 $("#userContainer").append($select); 
                 for (let i=0;i<results.length; i++){
                 $select.append(`<option value="${results[i].id}">${results[i].firstname} ${results[i].lastname}</option>`).attr("id", "userList");
@@ -28,7 +30,7 @@ $( document ).ready(function() {
             let user_id = userList.options[userList.selectedIndex].value;
             console.log(user_id)          
         }
-      });  
+     // });  
 
 
 
@@ -49,14 +51,16 @@ $("#submitTransferBtn").click(function(e) {
     url: "http://test01.local/bank-application/public/api/createTransaction.php",
     data: encoded_send ,
     success: function(result) {  
-      alert('success');
+      $("#successMsg").show();
+      $("#failMsg").hide();
       console.log(result);
    
     },
     error: function(result) {
-      //alert('error');
+      $("#failMsg").show();
+      $("#successMsg").hide();
+      
     }
-    
   });
 });
 });

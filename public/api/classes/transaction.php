@@ -75,7 +75,7 @@ class Transaction
     }
     public function checkTransaction($balance, $amount)
     {
-        if($balance < $amount){
+        if($balance < $amount) {
             throw new Exception ("Not enough credits");
         }
         return true;
