@@ -25,8 +25,20 @@ switch ($requestMethod) {
         $transaction->setFromAccount($from_account);
         $transaction->setToAmount($to_amount);
         $transaction->setToAccount($to_account);
-        $transactionInfo = $transaction->createTransaction();
+
+
+        try{
+            if($transactionInfo = $transaction->createTransaction($transaction->getBalance($from_account), $to_amount)){
+                echo ("Transaction was Succesfull");
+                return $transactionInfo;
+            }
+
+        }catch(Exception $e){
+            echo 'Message:' . $e->getMessage();
+         }
+        
  
+
         if (!empty($transactionInfo)) {
             $js_encode = json_encode(array('status'=>true, 'message'=>'Transaction was Successfully'), true);
         } else {
@@ -38,4 +50,5 @@ switch ($requestMethod) {
     default:
         //header("HTTP/1.0 405 Method Not Allowed");
         break;
+        
 }

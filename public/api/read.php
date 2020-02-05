@@ -13,7 +13,6 @@ $db = $database->openConnection();
  
 // initialize object
 $user = new User($db);
-//$transaction = new Transaction($db);
 
  
 // query products

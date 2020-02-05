@@ -8,11 +8,11 @@ $( document ).ready(function() {
           url: "http://test01.local/bank-application/public/api/read.php",
           data: {
             id: $("#transactionBtn").val(),
-            access_token: $("#access_token").val()
           },
           success: function(result) {  
               let results = result.users;
               console.log(results);
+              
                 let $select = $("<select class='w-100 text-center p-1 m-2' name='user_id'></select>");
                 $("#userContainer").append($select); 
                 for (let i=0;i<results.length; i++){
@@ -29,7 +29,7 @@ $( document ).ready(function() {
             console.log(user_id)          
         }
       });  
-});
+
 
 
 $("#submitTransferBtn").click(function(e) {
@@ -54,9 +54,9 @@ $("#submitTransferBtn").click(function(e) {
    
     },
     error: function(result) {
-      alert('error');
+      //alert('error');
     }
     
   });
-
+});
 });

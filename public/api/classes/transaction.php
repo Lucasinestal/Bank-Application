@@ -1,6 +1,5 @@
 <?php
  
-
 class Transaction
 {
     protected $conn;
@@ -15,7 +14,8 @@ class Transaction
     private $currency_rate;
     private $date;
 
-    public function __construct($db){
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
  
@@ -39,9 +39,11 @@ class Transaction
   
  
     // create new Transaction
-    public function createTransaction()
+    public function createTransaction($balance, $amount)
     {
-        //try {
+        $this->checkTransaction($balance, $amount);
+
+        try {
             $query = "INSERT INTO transactions (from_amount, from_account, to_amount, to_account)
             VALUES ( $this->from_amount, $this->from_account, $this->to_amount, $this->to_account )";
             /*$data = [
@@ -53,23 +55,29 @@ class Transaction
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt;
-        //} //catch (Exception $e) {
-            //die("Oh noes! There's an error in the query!");
-        //}
-    }
-    
-    // getAll Student
-    public function getAllTransactions()
-    {
-        try {
-            $sql = "SELECT * FROM transactions";
-            $stmt = $this->conn->prepare($sql);
- 
-            $stmt->execute();
-            $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-            return $result;
         } catch (Exception $e) {
             die("Oh noes! There's an error in the query!");
         }
+    }
+    
+    // getbalance
+    public function getBalance()
+    {
+        try {
+            $query = "SELECT balance FROM vw_users WHERE account_id = $this->from_account";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $balance = $stmt->fetchAll()[0]['balance'];
+            return $balance;
+        } catch (Exception $e) {
+            die("Oh noes! There's an error in the query!");
+        }
+    }
+    public function checkTransaction($balance, $amount)
+    {
+        if($balance < $amount){
+            throw new Exception ("Not enough credits");
+        }
+        return true;
     }
 }

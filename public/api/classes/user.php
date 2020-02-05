@@ -25,18 +25,6 @@ class User{
         $stmt->execute();
         return $stmt;
 }
-    public function checkUser(){
-        $query = "SELECT * FROM $this->table_name WHERE firstname = $this->firstName AND lastname = $this->lastName";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
-    }
-    public function checkBalance(){
-        $query = "SELECT * FROM $this->table_name WHERE id = $this->id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
-    }
 }
 ?>
 
