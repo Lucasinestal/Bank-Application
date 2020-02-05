@@ -13,9 +13,12 @@ $db = $database->openConnection();
  
 // initialize object
 $user = new User($db);
+//$transaction = new Transaction($db);
+
  
 // query products
 $stmt = $user->read();
+//$stmt = $user->checkBalance();
 $num = $stmt->rowCount();
  
 // check if more than 0 record found
@@ -34,6 +37,8 @@ if($num>0){
             "lastname" => $lastName,
             "password" => $password,
             "mobilephone" => $mobilephone,
+            "account_id" => $account_id,
+            "balance" => $balance
         );
  
         array_push($user_arr["users"], $user_item);
