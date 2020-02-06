@@ -21,7 +21,7 @@
     <button class="form-control w-100 btn btn-primary m-2" id="submitTransferBtn"type="submit">Submit Transaction</button>
     </form> 
     <div id="messageDiv">
-    <p id="failMsg" class='text-danger text-center p-1 m-2'>Transaction failed, not enough credits!</p>
+    <p id="failMsg" class='text-danger text-center p-1 m-2'>Transaction failed, no coverage!</p>
     <p id="successMsg" class='text-success text-center p-1 m-2'>Transaction was successful!</p>
     </div>
     </div>

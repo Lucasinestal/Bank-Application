@@ -1,4 +1,5 @@
 <?php
+
 class Connection
 {
     private $server = "mysql:host=localhost;dbname=bank;";
@@ -22,4 +23,3 @@ class Connection
         $this->con = null;
     }
 }
-

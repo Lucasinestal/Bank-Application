@@ -45,18 +45,21 @@ class Transaction
 
         try {
             $query = "INSERT INTO transactions (from_amount, from_account, to_amount, to_account)
-            VALUES ( $this->from_amount, $this->from_account, $this->to_amount, $this->to_account )";
-            /*$data = [
-                'from_amount' => $this->from_amount,
-                'from_account' => $this->from_account,
-                'to_amount' => $this->to_amount,
-                'to_account' => $this->to_account,
-            ];*/
+            VALUES ( :from_amount, :from_account, :to_amount, :to_account )";
+            
             $stmt = $this->conn->prepare($query);
+            // set parameters and execute
+            $stmt->bindParam(':from_amount', $this->from_amount);
+            $stmt->bindParam(':from_account', $this->from_account);
+            $stmt->bindParam(':to_amount', $this->to_amount); 
+            $stmt->bindParam(':to_account', $this->to_account); 
+    
+
+            //$stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt;
         } catch (Exception $e) {
-            die("Oh noes! There's an error in the query!");
+            die("There's an error in the query!");
         }
     }
     
@@ -64,8 +67,11 @@ class Transaction
     public function getBalance()
     {
         try {
-            $query = "SELECT balance FROM vw_users WHERE account_id = $this->from_account";
+            $query = "SELECT balance FROM vw_users WHERE account_id = :from_account";
             $stmt = $this->conn->prepare($query);
+            //Set params
+            $stmt->bindParam(':from_account', $this->from_account); 
+            //execute
             $stmt->execute();
             $balance = $stmt->fetchAll()[0]['balance'];
             return $balance;
@@ -75,8 +81,9 @@ class Transaction
     }
     public function checkTransaction($balance, $amount)
     {
-        if($balance < $amount) {
-            throw new Exception ("Not enough credits");
+        if ($balance < $amount || $balance < 0) {
+            throw new Exception('No Coverage');
+            echo $e->getMessage();
         }
         return true;
     }

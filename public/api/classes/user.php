@@ -1,5 +1,6 @@
 <?php
-class User{
+class User
+{
  
     // database connection and table name
     private $conn;
@@ -15,19 +16,16 @@ class User{
     public $balance;
  
     // constructor with $db as database connection
-    public function __construct($db){
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
     // read products
-    public function read(){
+    public function read()
+    {
         $query = "SELECT * FROM $this->table_name";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
+    }
 }
-}
-?>
-
-
-
-

@@ -1,12 +1,12 @@
 <?php
 $requestMethod = $_SERVER["REQUEST_METHOD"];
-$body_data = json_decode(file_get_contents('php://input'),true);
+$body_data = json_decode(file_get_contents('php://input'), true);
 
-// include database and object files
+
 include_once 'classes/connection.php';
 include_once 'classes/transaction.php';
  
-// instantiate database and product object
+
 $database = new Connection();
 $db = $database->openConnection();
  
@@ -27,15 +27,14 @@ switch ($requestMethod) {
         $transaction->setToAccount($to_account);
 
 
-        try{
-            if($transactionInfo = $transaction->createTransaction($transaction->getBalance($from_account), $to_amount)){
+        try {
+            if ($transactionInfo = $transaction->createTransaction($transaction->getBalance($from_account), $to_amount)) {
                 echo ("Transaction was Succesfull");
                 return $transactionInfo;
             }
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             echo 'Message:' . $e->getMessage();
-         }
+        }
         
  
 
@@ -50,5 +49,4 @@ switch ($requestMethod) {
     default:
         //header("HTTP/1.0 405 Method Not Allowed");
         break;
-        
 }
